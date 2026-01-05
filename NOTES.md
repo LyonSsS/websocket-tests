@@ -37,6 +37,8 @@ This test suite provides comprehensive validation of the WebSocket API v2 public
 
 **Test Count**: 11 tests covering all scenarios
 
+**⚠️ SPECIAL NOTE**: Trying to use the assertion logic as in bid < last_price < ask is not always true. This should not be a hard assertion. 
+
 ---
 
 ### 2. Book Channel (`tests/test_book.py`)
@@ -67,7 +69,16 @@ This test suite provides comprehensive validation of the WebSocket API v2 public
 5. Ask prices ascending (lowest to highest)
 ```
 
-**⚠️ SPECIAL NOTE**: Book tests include **STRICT ASSERTIONS** (check #3) that will intentionally FAIL if the order book is crossed. This catches critical data integrity issues that would break trading applications.
+**⚠️ SPECIAL NOTE**: Book tests include assertions for default fallback sencarios like FAILED tests/test_book.
+
+test_book_depth_zero                                                                                     
+test_book_depth_invalid_value                                                                            
+test_book_depth_none                                                                                     
+test_book_depth_empty_string                                                                             
+test_book_snapshot_none                                                                                  
+test_book_snapshot_invalid_string
+test_book_snapshot_invalid_number
+Which exepctes the default fall back behavior to value [10] and ignores the error message documented, especially to display failed tests. 
 
 **Test Count**: 12 tests covering all scenarios
 
@@ -110,6 +121,8 @@ This test suite provides comprehensive validation of the WebSocket API v2 public
 **Timeout Strategy**:
 - 1-minute candles: 30 seconds timeout
 - 5-minute candles: 60 seconds timeout (doubled for safety)
+
+**⚠️ SPECIAL NOTE**: I implemented the timeout strategy as I had some issues for these api resposnes as they seem more heavy on volume so I did a custom increase for the 5 minute candle interval.
 
 ---
 
@@ -220,18 +233,6 @@ See **README.md** for detailed execution instructions.
 - **OHLC 5-minute candles**: 60 seconds (doubled to wait for candle formation)
 - **Book unsubscribe**: May timeout on high-frequency channels (acceptable)
 
-### Timeout Exceptions
-Tests catch both:
-- `TimeoutError` (standard Python exception)
-- `websocket.WebSocketTimeoutException` (library-specific)
-
-Pattern used:
-```python
-except Exception as e:
-    if 'timeout' not in str(e).lower() and 'Timeout' not in type(e).__name__:
-        raise
-    print(f"⚠ Timeout acceptable for high-frequency channel")
-```
 
 ## Maintenance & Updates
 
