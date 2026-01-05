@@ -1,4 +1,4 @@
-# Kraken WebSocket API v2 Test Suite
+# WebSocket API v2 Test Suite
 
 Automated test suite for WebSocket API v2 public channels (Ticker, Book, OHLC, Trade) with comprehensive data validation, HTML reporting, and code coverage analysis.
 
