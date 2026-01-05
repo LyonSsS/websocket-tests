@@ -1,0 +1,14 @@
+# Core testing dependencies
+pytest==8.0.0
+websocket-client==1.7.0
+jsonschema==4.21.1
+
+# Test reporting and coverage
+pytest-html==4.1.1
+pytest-cov==4.1.0
+pytest-xdist==3.5.0
+
+# Code quality
+pylint==3.0.3
+black==24.1.1
+flake8==7.0.0

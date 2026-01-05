@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Kraken OHLC Channel Message Schema (v2)",
+  "description": "Schema for OHLC/candles channel messages from Kraken WebSocket API v2",
+  "type": "object",
+  "required": ["channel", "type", "data", "timestamp"],
+  "properties": {
+    "channel": {
+      "type": "string",
+      "const": "ohlc",
+      "description": "Channel name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["snapshot", "update"],
+      "description": "Message type"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "RFC3339 timestamp of message"
+    },
+    "data": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["symbol", "open", "high", "low", "close", "vwap", "volume", "trades", "interval", "interval_begin"],
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "Currency pair identifier"
+          },
+          "open": {
+            "type": "number",
+            "description": "Opening price"
+          },
+          "high": {
+            "type": "number",
+            "description": "Highest price in interval"
+          },
+          "low": {
+            "type": "number",
+            "description": "Lowest price in interval"
+          },
+          "close": {
+            "type": "number",
+            "description": "Closing price"
+          },
+          "vwap": {
+            "type": "number",
+            "description": "Volume weighted average price"
+          },
+          "volume": {
+            "type": "number",
+            "description": "Total volume in base currency"
+          },
+          "trades": {
+            "type": "integer",
+            "description": "Number of trades"
+          },
+          "interval": {
+            "type": "integer",
+            "description": "Interval duration in minutes"
+          },
+          "interval_begin": {
+            "type": "string",
+            "description": "RFC3339 timestamp of interval start"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "RFC3339 timestamp (deprecated, use interval_begin)"
+          }
+        }
+      }
+    }
+  }
+}

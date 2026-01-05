@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Run tests once
+  test-once:
+    build: .
+    container_name: kraken-tests
+    volumes:
+      - ./reports:/app/reports
+    environment:
+      - PYTEST_ARGS=${PYTEST_ARGS:-}
+    profiles:
+      - once
+
+  # Run tests continuously with 5-minute delay
+  test-loop:
+    build: .
+    container_name: kraken-tests-loop
+    volumes:
+      - ./reports:/app/reports
+    environment:
+      - TEST_DELAY_MINUTES=${TEST_DELAY_MINUTES:-5}
+      - PYTEST_ARGS=${PYTEST_ARGS:-}
+    command: /bin/bash /app/run_tests_loop.sh
+    restart: unless-stopped
+    profiles:
+      - loop
+
+  # Run specific test file/module
+  test-custom:
+    build: .
+    container_name: kraken-tests-custom
+    volumes:
+      - ./reports:/app/reports
+    environment:
+      - TEST_PATH=${TEST_PATH:-tests/}
+      - PYTEST_ARGS=${PYTEST_ARGS:-}
+    command: >
+      pytest -v
+      --html=/app/reports/report.html
+      --self-contained-html
+      --cov=utils
+      --cov-report=html:/app/reports/coverage
+      --cov-report=term-missing
+      ${TEST_PATH}
+      ${PYTEST_ARGS}
+    profiles:
+      - custom

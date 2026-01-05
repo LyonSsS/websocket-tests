@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Kraken Book Channel Message Schema (v2)",
+  "description": "Schema for book (order book) channel messages from Kraken WebSocket API v2",
+  "type": "object",
+  "required": ["channel", "type", "data"],
+  "properties": {
+    "channel": {
+      "type": "string",
+      "const": "book",
+      "description": "Channel name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["snapshot", "update"],
+      "description": "Message type"
+    },
+    "data": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["symbol", "bids", "asks", "checksum"],
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "Currency pair identifier"
+          },
+          "bids": {
+            "type": "array",
+            "description": "Bid price levels",
+            "items": {
+              "type": "object",
+              "required": ["price", "qty"],
+              "properties": {
+                "price": {
+                  "type": "number",
+                  "description": "Bid price"
+                },
+                "qty": {
+                  "type": "number",
+                  "description": "Bid quantity"
+                }
+              }
+            }
+          },
+          "asks": {
+            "type": "array",
+            "description": "Ask price levels",
+            "items": {
+              "type": "object",
+              "required": ["price", "qty"],
+              "properties": {
+                "price": {
+                  "type": "number",
+                  "description": "Ask price"
+                },
+                "qty": {
+                  "type": "number",
+                  "description": "Ask quantity"
+                }
+              }
+            }
+          },
+          "checksum": {
+            "type": "integer",
+            "description": "CRC32 checksum for top 10 levels"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "RFC3339 timestamp"
+          }
+        }
+      }
+    }
+  }
+}
