@@ -165,7 +165,7 @@ These tests expect the API to use default fallback values (depth=10) and ignore 
 ### Project Structure
 
 ```
-Kraken/
+root/
 ├── schemas/              # JSON schemas for validation
 │   ├── ticker_schema.json
 │   ├── book_schema.json

@@ -28,7 +28,7 @@ See [NOTES.md](NOTES.md) for detailed test scenarios and validation logic.
 ```bash
 # Clone repository
 git clone <repository-url>
-cd Kraken
+cd <project-root-folder>
 
 # Create virtual environment (optional but recommended)
 python -m venv venv
@@ -123,7 +123,7 @@ open reports/coverage/index.html
 ## 📁 Project Structure
 
 ```
-Kraken/
+root/
 ├── schemas/              # JSON validation schemas
 ├── tests/                # Test files (44 tests across 4 channels)
 ├── utils/                # WebSocket client utilities
