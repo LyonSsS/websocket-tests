@@ -52,7 +52,10 @@ docker build -t kraken-tests .
 ### Local Testing
 
 ```bash
-# Run all tests with live output
+# Run all tests with live outputs and status results
+pytest -v 
+
+# Run all tests with live outputs and detailed bug logs
 pytest -v -s
 
 # Run specific channel
@@ -61,7 +64,7 @@ pytest -v tests/test_book.py
 pytest -v tests/test_ohlc.py
 pytest -v tests/test_trade.py
 
-# Run with HTML report and coverage (RECOMMENDED)
+# Run with HTML report, coverage and detailed logs (RECOMMENDED)
 pytest -v -s --html=reports/report.html --self-contained-html --cov=utils --cov-report=html:reports/coverage --cov-report=term-missing
 ```
 
