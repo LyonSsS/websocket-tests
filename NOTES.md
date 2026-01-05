@@ -69,16 +69,17 @@ This test suite provides comprehensive validation of the WebSocket API v2 public
 5. Ask prices ascending (lowest to highest)
 ```
 
-**⚠️ SPECIAL NOTE**: Book tests include assertions for default fallback sencarios like FAILED tests/test_book.
+**⚠️ SPECIAL NOTE**: Book tests include assertions for default fallback scenarios. The following tests are expected to FAIL and demonstrate fallback behavior:
 
-test_book_depth_zero                                                                                     
-test_book_depth_invalid_value                                                                            
-test_book_depth_none                                                                                     
-test_book_depth_empty_string                                                                             
-test_book_snapshot_none                                                                                  
-test_book_snapshot_invalid_string
-test_book_snapshot_invalid_number
-Which exepctes the default fall back behavior to value [10] and ignores the error message documented, especially to display failed tests. 
+- `test_book_depth_zero`
+- `test_book_depth_invalid_value`
+- `test_book_depth_none`
+- `test_book_depth_empty_string`
+- `test_book_snapshot_none`
+- `test_book_snapshot_invalid_string`
+- `test_book_snapshot_invalid_number`
+
+These tests expect the API to use default fallback values (depth=10) and ignore invalid parameters, rather than returning error messages as documented. 
 
 **Test Count**: 12 tests covering all scenarios
 
